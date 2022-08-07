@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+    <variable
+    name="asteroid"
+    type="com.udacity.asteroidradar.domain.Asteroid" />
+
+        <variable
+            name="asteroidCallback"
+            type="com.udacity.asteroidradar.main.AsteroidClick" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> asteroidCallback.onClick(asteroid)}"
+        >
+
+
+        <TextView
+            android:id="@+id/ast_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{asteroid.codename}"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/default_text_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ast_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp"
+            android:text="@{asteroid.closeApproachDate}"
+            android:textColor="@color/text_grey"
+            app:layout_constraintStart_toStartOf="@+id/ast_name"
+            app:layout_constraintTop_toBottomOf="@+id/ast_name" />
+
+        <ImageView
+            android:id="@+id/potentially_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:statusIcon="@{asteroid.potentiallyHazardous}"
+            android:contentDescription="@{asteroid.potentiallyHazardousDescription()}"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ast_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ast_name"
+           />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
