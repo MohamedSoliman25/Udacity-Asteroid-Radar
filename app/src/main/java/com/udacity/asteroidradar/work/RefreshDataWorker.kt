@@ -3,6 +3,7 @@ package com.udacity.asteroidradar.work
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.udacity.asteroidradar.BuildConfig
 import com.udacity.asteroidradar.Constants
 import com.udacity.asteroidradar.database.getDatabase
 import com.udacity.asteroidradar.repository.AsteroidRepository
@@ -31,8 +32,8 @@ class RefreshDataWorker(context: Context, params: WorkerParameters):
         val endDate = dateFormat.format(lastTime)
 
         return try {
-            asteroidRepository.refreshAsteroids(startDate, endDate, Constants.API_KEY)
-            asteroidRepository.refreshPictureOFDay(Constants.API_KEY)
+            asteroidRepository.refreshAsteroids(startDate, endDate, BuildConfig.API_KEY)
+            asteroidRepository.refreshPictureOFDay(BuildConfig.API_KEY)
             Result.success()
         } catch (e: HttpException) {
             Result.retry()

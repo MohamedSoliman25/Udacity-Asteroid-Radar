@@ -3,6 +3,7 @@ package com.udacity.asteroidradar.main
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
+import com.udacity.asteroidradar.BuildConfig
 import com.udacity.asteroidradar.Constants
 import com.udacity.asteroidradar.PictureOfDay
 import com.udacity.asteroidradar.api.getNextSevenDaysFormattedDates
@@ -25,9 +26,7 @@ class MainViewModel (application: Application): AndroidViewModel(application) {
 
     private lateinit var startDate:String
     private lateinit var endDate:String
-    //not implemented yet
-//    private val _pictureOfDay = MutableLiveData<PictureOfDay>()
-//    val pictureOfDay: LiveData<PictureOfDay> = _pictureOfDay
+
 
     init {
 
@@ -43,7 +42,7 @@ class MainViewModel (application: Application): AndroidViewModel(application) {
         getCalendarDate()
         viewModelScope.launch {
             try {
-                asteroidsRepository.refreshAsteroids(startDate,endDate,Constants.API_KEY)
+                asteroidsRepository.refreshAsteroids(startDate,endDate,BuildConfig.API_KEY)
             }catch (e:Exception){
                 e.printStackTrace()
             }
@@ -52,7 +51,7 @@ class MainViewModel (application: Application): AndroidViewModel(application) {
     fun validatePictureOfDay(){
         viewModelScope.launch {
             try {
-                asteroidsRepository.refreshPictureOFDay(Constants.API_KEY)
+                asteroidsRepository.refreshPictureOFDay(BuildConfig.API_KEY)
             }catch (e:Exception){
                 e.printStackTrace()
             }
