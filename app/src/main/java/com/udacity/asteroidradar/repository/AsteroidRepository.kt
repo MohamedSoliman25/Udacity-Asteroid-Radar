@@ -18,6 +18,10 @@ class AsteroidRepository(private val asteroidDatabase: AsteroidDatabase) {
 
     val asteroids:LiveData<List<Asteroid>> = asteroidDatabase.asteroidDao.getAllAsteroids()
 
+    fun getTodayAsteroid(startDate: String):LiveData<List<Asteroid>> {
+        return asteroidDatabase.asteroidDao.getTodayAsteroid(startDate)
+    }
+
     suspend fun refreshAsteroids(startDate: String, endDate: String, apiKey: String) {
 
         withContext(Dispatchers.IO){

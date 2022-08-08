@@ -24,6 +24,7 @@ class MainViewModel (application: Application): AndroidViewModel(application) {
     val asteroid:LiveData<List<Asteroid>> =asteroidsRepository.asteroids
     val pictureOfDay:LiveData<PictureOfDay> = asteroidsRepository.pictureOfDay
 
+
     private lateinit var startDate:String
     private lateinit var endDate:String
 
@@ -37,6 +38,8 @@ class MainViewModel (application: Application): AndroidViewModel(application) {
 //            Log.d(TAG, "testDayImage: ${asteroidsRepository.getPictureOfDay(Constants.API_KEY).url}")
 //        }
     }
+    val todayAsteroid = asteroidsRepository.getTodayAsteroid(startDate)
+
 
     fun validateRefreshAsteroid(){
         getCalendarDate()

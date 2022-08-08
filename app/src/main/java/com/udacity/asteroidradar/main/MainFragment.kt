@@ -19,7 +19,7 @@ class MainFragment : Fragment() {
 
     private  val TAG = "MainFragment"
     private lateinit var binding: FragmentMainBinding
-
+    lateinit var asteroidAdapter:AsteroidsAdapter
 
 
     private val viewModel: MainViewModel by lazy {
@@ -48,7 +48,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val asteroidAdapter = AsteroidsAdapter(AsteroidClick {asteroid->
+         asteroidAdapter = AsteroidsAdapter(AsteroidClick {asteroid->
             asteroid?.let {
                 findNavController().navigate(MainFragmentDirections.actionShowDetail(it))
             }
@@ -76,9 +76,21 @@ class MainFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return true
+        when (item.itemId){
+            R.id.show_all_menu ->  viewModel.asteroid.observe(viewLifecycleOwner){
+                asteroidAdapter.asteroids = it
+            }
+            R.id.show_rent_menu -> viewModel.todayAsteroid.observe(viewLifecycleOwner){
+                asteroidAdapter.asteroids = it
+            }
+            R.id.show_buy_menu -> viewModel.asteroid.observe(viewLifecycleOwner){
+                asteroidAdapter.asteroids = it
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
-}
+    }
+
     class AsteroidClick(val block: (Asteroid) -> Unit) {
 
         fun onClick(asteroid: Asteroid) = block(asteroid)
